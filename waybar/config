@@ -22,7 +22,6 @@
         "bluetooth",
         "backlight",
         "battery",
-        "custom/battery-health",
         "custom/power"
     ],
 
@@ -66,26 +65,26 @@
     },
 
     "network": {
-        "format-wifi":          "  {signalStrength}%",
-        "format-ethernet":      "󰈀  {ifname}",
-        "format-disconnected":  "󰖪 ",
-        "format-linked":        "󰖩  {ifname}",
-        "tooltip-format-wifi":  "  {essid}\n  {signalStrength}%\n  {ipAddr}",
-        "tooltip-format-ethernet": "󰈀  {ifname}\n  {ipAddr}",
+        "format-wifi":          "",
+        "format-ethernet":      "󰈀",
+        "format-disconnected":  "󰖪",
+        "format-linked":        "󰖩",
+        "tooltip-format-wifi":  "  {essid}\nSignal: {signalStrength}%\nIP: {ipAddr}",
+        "tooltip-format-ethernet": "󰈀  {ifname}\nIP: {ipAddr}",
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "nm-connection-editor",
         "max-length": 20
     },
 
     "bluetooth": {
-        "format":           "  {status}",
+        "format":           "",
         "format-connected": "  {device_alias}",
         "format-connected-battery": "  {device_alias} {device_battery_percentage}%",
-        "format-off":       "󰂲 ",
-        "tooltip-format":   "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "format-off":       "󰂲",
+        "tooltip-format":   "Bluetooth: {status}\n{controller_alias}",
+        "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}  {device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}  {device_address}  {device_battery_percentage}%",
         "on-click": "blueman-manager"
     },
 
@@ -94,7 +93,8 @@
         "format-icons": ["", "", "", "", "", "", "", "", ""],
         "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
         "on-scroll-down": "brightnessctl -e4 -n2 set 5%-",
-        "tooltip": false
+        "tooltip": true,
+        "tooltip-format": "Screen brightness: {percent}%"
     },
 
     "battery": {
@@ -108,21 +108,13 @@
         "format-plugged":   "  {capacity}%",
         "format-full":      "  {capacity}%",
         "format-icons":     ["", "", "", "", ""],
-        "tooltip-format":   "Battery: {capacity}%\n{timeTo}\nPower draw: {power}W",
+        "tooltip-format":   "Battery: {capacity}%\nHealth: {health}%\n{timeTo}\nPower draw: {power}W",
         "on-click": ""
-    },
-
-    "custom/battery-health": {
-        "exec": "~/.local/bin/battery-health.sh",
-        "interval": 120,
-        "format": "{}",
-        "tooltip": true,
-        "tooltip-format": "Battery capacity health"
     },
 
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "wlogout"
+        "on-click": "wlogout -b 3"
     }
 }
