@@ -25,6 +25,8 @@ Then log out and select **Hyprland** as your session at the login screen.
 
 ## Behaviour
 
+- **Startup** — gnome-terminal opens automatically when Hyprland starts
+- **No wallpaper** — starts with a plain black background; set one manually when needed
 - **Hover to focus** — move your mouse over any window to make it active instantly, no clicking needed
 - **Side-by-side tiling** — new windows always split to the right, dividing the screen equally (50/50)
 - **Same workspace** — all apps open in your current workspace, nothing jumps to another
