@@ -1,0 +1,128 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "margin-top": 6,
+    "margin-left": 12,
+    "margin-right": 12,
+    "spacing": 4,
+    "reload_style_on_change": true,
+
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "network",
+        "bluetooth",
+        "backlight",
+        "battery",
+        "custom/battery-health",
+        "custom/power"
+    ],
+
+    "hyprland/workspaces": {
+        "format": "{id}",
+        "on-scroll-up": "hyprctl dispatch workspace e-1",
+        "on-scroll-down": "hyprctl dispatch workspace e+1",
+        "on-click": "activate",
+        "sort-by-number": true,
+        "persistent-workspaces": {
+            "*": [1, 2, 3, 4, 5]
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 40,
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "  $1",
+            "(.*) - kitty": "  $1",
+            "": "  Desktop"
+        }
+    },
+
+    "clock": {
+        "format": "  {:%H:%M}   {:%a %d %b}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#cba6f7'><b>{}</b></span>",
+                "days":     "<span color='#cdd6f4'>{}</span>",
+                "weeks":    "<span color='#6c7086'>W{}</span>",
+                "weekdays": "<span color='#89dceb'><b>{}</b></span>",
+                "today":    "<span color='#f38ba8'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "network": {
+        "format-wifi":          "  {signalStrength}%",
+        "format-ethernet":      "󰈀  {ifname}",
+        "format-disconnected":  "󰖪 ",
+        "format-linked":        "󰖩  {ifname}",
+        "tooltip-format-wifi":  "  {essid}\n  {signalStrength}%\n  {ipAddr}",
+        "tooltip-format-ethernet": "󰈀  {ifname}\n  {ipAddr}",
+        "tooltip-format-disconnected": "Disconnected",
+        "on-click": "nm-connection-editor",
+        "max-length": 20
+    },
+
+    "bluetooth": {
+        "format":           "  {status}",
+        "format-connected": "  {device_alias}",
+        "format-connected-battery": "  {device_alias} {device_battery_percentage}%",
+        "format-off":       "󰂲 ",
+        "tooltip-format":   "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager"
+    },
+
+    "backlight": {
+        "format": "{icon}  {percent}%",
+        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
+        "on-scroll-down": "brightnessctl -e4 -n2 set 5%-",
+        "tooltip": false
+    },
+
+    "battery": {
+        "states": {
+            "good":     95,
+            "warning":  30,
+            "critical": 15
+        },
+        "format":           "{icon}  {capacity}%",
+        "format-charging":  "󰂄  {capacity}%",
+        "format-plugged":   "  {capacity}%",
+        "format-full":      "  {capacity}%",
+        "format-icons":     ["", "", "", "", ""],
+        "tooltip-format":   "Battery: {capacity}%\n{timeTo}\nPower draw: {power}W",
+        "on-click": ""
+    },
+
+    "custom/battery-health": {
+        "exec": "~/.local/bin/battery-health.sh",
+        "interval": 120,
+        "format": "{}",
+        "tooltip": true,
+        "tooltip-format": "Battery capacity health"
+    },
+
+    "custom/power": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "wlogout"
+    }
+}

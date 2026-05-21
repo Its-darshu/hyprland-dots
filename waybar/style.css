@@ -1,0 +1,171 @@
+/* ══════════════════════════════════════════════════
+   Glassmorphism Waybar — Hyprland Fedora Setup
+   Colors: Catppuccin-inspired cyan/purple on dark
+   ══════════════════════════════════════════════════ */
+
+* {
+    border:        none;
+    border-radius: 0;
+    font-family:   "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+    font-size:     13px;
+    font-weight:   500;
+    min-height:    0;
+    transition:    background 200ms ease, color 150ms ease;
+}
+
+/* ── Bar itself ─────────────────────────────────── */
+window#waybar {
+    background:    rgba(17, 17, 27, 0.60);
+    border-bottom: 1px solid rgba(137, 220, 235, 0.12);
+    border-radius: 14px;
+    color:         #cdd6f4;
+}
+
+/* ── All module pills ───────────────────────────── */
+.modules-left > widget,
+.modules-right > widget {
+    margin: 4px 2px;
+}
+
+#workspaces,
+#window,
+#clock,
+#network,
+#bluetooth,
+#backlight,
+#battery,
+#custom-battery-health,
+#custom-power {
+    background:    rgba(30, 30, 46, 0.65);
+    border:        1px solid rgba(137, 220, 235, 0.10);
+    border-radius: 10px;
+    padding:       2px 10px;
+    margin:        4px 3px;
+    color:         #cdd6f4;
+}
+
+/* ── Workspaces ─────────────────────────────────── */
+#workspaces {
+    padding: 2px 6px;
+}
+
+#workspaces button {
+    background:    transparent;
+    border-radius: 8px;
+    color:         #6c7086;
+    font-size:     12px;
+    padding:       2px 8px;
+    min-width:     24px;
+    transition:    all 150ms ease;
+}
+
+#workspaces button:hover {
+    background: rgba(49, 50, 68, 0.80);
+    color:      #cdd6f4;
+}
+
+#workspaces button.active {
+    background: rgba(137, 220, 235, 0.18);
+    color:      #89dceb;
+    font-weight: 700;
+    border:     1px solid rgba(137, 220, 235, 0.30);
+}
+
+#workspaces button.urgent {
+    background: rgba(243, 139, 168, 0.20);
+    color:      #f38ba8;
+}
+
+/* ── Window title ───────────────────────────────── */
+#window {
+    color:   #a6adc8;
+    padding: 2px 12px;
+}
+
+/* ── Clock ──────────────────────────────────────── */
+#clock {
+    background:  rgba(30, 30, 46, 0.70);
+    color:       #cba6f7;
+    font-weight: 600;
+    padding:     2px 16px;
+    font-size:   13px;
+}
+
+/* ── Network ────────────────────────────────────── */
+#network {
+    color: #a6e3a1;
+}
+
+#network.disconnected {
+    color: #f38ba8;
+}
+
+/* ── Bluetooth ──────────────────────────────────── */
+#bluetooth {
+    color: #89dceb;
+}
+
+#bluetooth.off {
+    color: #585b70;
+}
+
+/* ── Backlight ──────────────────────────────────── */
+#backlight {
+    color: #f9e2af;
+}
+
+/* ── Battery ────────────────────────────────────── */
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #a6e3a1;
+}
+
+#battery.warning:not(.charging) {
+    color: #f9e2af;
+}
+
+#battery.critical:not(.charging) {
+    color:            #f38ba8;
+    animation-name:   blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to { background: rgba(243, 139, 168, 0.20); }
+}
+
+/* ── Battery health ─────────────────────────────── */
+#custom-battery-health {
+    color: #cba6f7;
+}
+
+/* ── Power button ───────────────────────────────── */
+#custom-power {
+    color:       #f38ba8;
+    font-size:   15px;
+    padding:     2px 12px;
+    border:      1px solid rgba(243, 139, 168, 0.20);
+    font-weight: 700;
+}
+
+#custom-power:hover {
+    background: rgba(243, 139, 168, 0.15);
+    color:      #f38ba8;
+}
+
+/* ── Tooltip ────────────────────────────────────── */
+tooltip {
+    background:    rgba(17, 17, 27, 0.90);
+    border:        1px solid rgba(137, 220, 235, 0.20);
+    border-radius: 10px;
+    color:         #cdd6f4;
+    font-size:     12px;
+    padding:       6px;
+}
