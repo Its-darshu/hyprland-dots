@@ -14,20 +14,34 @@
 }
 
 /* ── Bar itself ─────────────────────────────────── */
+/* Autohide: the bar keeps full 40px height (so the hover zone is easy to
+   hit) but is fully transparent until the mouse touches the top edge. */
 window#waybar {
     background:    transparent;
     border-bottom: none;
     border-radius: 0;
     color:         #cdd6f4;
     min-height:    40px;
-    opacity:       0;
-    transition:    opacity 200ms ease, background 200ms ease, border-color 200ms ease;
+    transition:    background 200ms ease, border-color 200ms ease;
 }
 
 window#waybar:hover {
     background:    rgba(17, 17, 27, 0.60);
     border-bottom: 1px solid rgba(137, 220, 235, 0.12);
-    opacity:       1;
+}
+
+/* Hide all module content until the bar is hovered. */
+.modules-left,
+.modules-center,
+.modules-right {
+    opacity:    0;
+    transition: opacity 180ms ease;
+}
+
+window#waybar:hover .modules-left,
+window#waybar:hover .modules-center,
+window#waybar:hover .modules-right {
+    opacity: 1;
 }
 
 /* ── All module pills ───────────────────────────── */
