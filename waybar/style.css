@@ -19,17 +19,7 @@ window#waybar {
     border-bottom: 1px solid rgba(137, 220, 235, 0.12);
     border-radius: 0;
     color:         #cdd6f4;
-    min-height:    3px;
-    max-height:    3px;
-    opacity:       0.0;
-    overflow:      hidden;
-    transition:    min-height 200ms ease, max-height 200ms ease, opacity 250ms ease;
-}
-
-window#waybar:hover {
-    min-height: 40px;
-    max-height: 40px;
-    opacity:    1.0;
+    min-height:    40px;
 }
 
 /* ── All module pills ───────────────────────────── */
