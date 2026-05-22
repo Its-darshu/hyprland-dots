@@ -6,11 +6,11 @@ echo "Fedora 43+ optimized"
 echo ""
 
 # Add Hyprland COPR for packages not yet in main repos
-echo "[1/5] Adding solopasha/hyprland COPR..."
+echo "[1/6] Adding solopasha/hyprland COPR..."
 sudo dnf copr enable -y solopasha/hyprland 2>/dev/null || echo "COPR already enabled or skipped"
 
 # Core Hyprland compositor and ecosystem
-echo "[2/5] Installing Hyprland core..."
+echo "[2/6] Installing Hyprland core..."
 sudo dnf install -y \
   hyprland \
   hyprlock \
@@ -20,7 +20,7 @@ sudo dnf install -y \
   xdg-desktop-portal-gtk
 
 # Status bar, app launcher, terminals
-echo "[3/5] Installing UI tools..."
+echo "[3/6] Installing UI tools..."
 sudo dnf install -y \
   waybar \
   fuzzel \
@@ -61,7 +61,7 @@ sudo dnf install -y polkit-kde 2>/dev/null || \
   echo "Install polkit agent manually"
 
 # Audio stack
-echo "[4/5] Enabling audio (pipewire)..."
+echo "[4/6] Enabling audio (pipewire)..."
 sudo dnf install -y \
   pipewire \
   pipewire-pulse \
@@ -75,8 +75,23 @@ sudo dnf install -y \
   nerd-fonts 2>/dev/null || \
   sudo dnf install -y jetbrains-mono-fonts 2>/dev/null || true
 
-echo "[5/5] Creating Pictures directory for screenshots..."
+echo "[5/6] Creating Pictures directory for screenshots..."
 mkdir -p ~/Pictures/screenshots
+
+echo "[6/6] Installing GNOME Settings launcher fixes..."
+# gnome-control-center refuses to start unless XDG_CURRENT_DESKTOP contains
+# GNOME/Unity, so it does nothing when launched from a Hyprland menu. These
+# override .desktop files inject XDG_CURRENT_DESKTOP=GNOME so Settings (and
+# every panel) opens normally.
+SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+if [ -d "$SCRIPT_DIR/local-apps" ]; then
+  mkdir -p ~/.local/share/applications
+  cp "$SCRIPT_DIR"/local-apps/*.desktop ~/.local/share/applications/
+  update-desktop-database ~/.local/share/applications 2>/dev/null || true
+  echo "  GNOME Settings + panels patched to launch under Hyprland"
+else
+  echo "  local-apps/ not found next to this script - skipping"
+fi
 
 echo ""
 echo "=== Setup complete! ==="
