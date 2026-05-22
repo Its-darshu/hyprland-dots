@@ -1,30 +1,31 @@
 {
     "layer": "top",
     "position": "top",
+    "exclusive": false,
     "height": 40,
     "margin-top": 0,
     "margin-left": 0,
     "margin-right": 0,
     "spacing": 4,
     "reload_style_on_change": true,
-
     "modules-left": [
         "hyprland/workspaces",
         "hyprland/window"
     ],
-
     "modules-center": [
         "clock"
     ],
-
     "modules-right": [
+        "cpu",
+        "memory",
+        "temperature",
+        "power-profiles-daemon",
         "network",
         "bluetooth",
         "backlight",
         "battery",
         "custom/power"
     ],
-
     "hyprland/workspaces": {
         "format": "{id}",
         "on-scroll-up": "hyprctl dispatch workspace e-1",
@@ -32,88 +33,126 @@
         "on-click": "activate",
         "sort-by-number": true,
         "persistent-workspaces": {
-            "*": [1, 2, 3, 4, 5]
+            "*": [
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
         }
     },
-
     "hyprland/window": {
         "format": "{}",
         "max-length": 40,
         "separate-outputs": true,
         "rewrite": {
-            "(.*) — Mozilla Firefox": "  $1",
-            "(.*) - kitty": "  $1",
-            "": "  Desktop"
+            "(.*) — Mozilla Firefox": "󰈹  $1",
+            "(.*) - kitty": "󰆍  $1",
+            "": "󰍹  Desktop"
         }
     },
-
     "clock": {
-        "format": "  {:%I:%M %p}   {:%a %d %b}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode": "month",
-            "weeks-pos": "left",
-            "on-scroll": 1,
-            "format": {
-                "months":   "<span color='#cba6f7'><b>{}</b></span>",
-                "days":     "<span color='#cdd6f4'>{}</span>",
-                "weeks":    "<span color='#6c7086'>W{}</span>",
-                "weekdays": "<span color='#89dceb'><b>{}</b></span>",
-                "today":    "<span color='#f38ba8'><b><u>{}</u></b></span>"
-            }
+        "format": "󰅐  {0:%I:%M %p}   󰃭  {0:%a %d %b}",
+        "tooltip-format": "<big>{0:%Y %B}</big>\n<tt><small>{0:%A, %d %B %Y}</small></tt>"
+    },
+    "cpu": {
+        "interval": 2,
+        "format": "󰻠  {usage}%",
+        "tooltip": true,
+        "on-click": "kitty -e top"
+    },
+    "memory": {
+        "interval": 5,
+        "format": "󰍛  {percentage}%",
+        "tooltip-format": "RAM: {used:0.1f}G / {total:0.1f}G   ({percentage}%)\nSwap: {swapUsed:0.1f}G / {swapTotal:0.1f}G",
+        "on-click": "kitty -e top"
+    },
+    "temperature": {
+        "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+        "input-filename": "temp1_input",
+        "interval": 2,
+        "critical-threshold": 85,
+        "format": "{icon}  {temperatureC}°C",
+        "format-critical": "{icon}  {temperatureC}°C",
+        "format-icons": [
+            "󰔐",
+            "󰔏",
+            "󰔏",
+            "󰔑",
+            "󰔑"
+        ],
+        "tooltip": true
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip": true,
+        "tooltip-format": "Power mode: {profile}\nClick to switch (saver → balanced → performance)",
+        "format-icons": {
+            "default": "󰓅",
+            "power-saver": "󰌪",
+            "balanced": "󰗑",
+            "performance": "󱓞"
         }
     },
-
     "network": {
-        "format-wifi":          "",
-        "format-ethernet":      "󰈀",
-        "format-disconnected":  "󰖪",
-        "format-linked":        "󰖩",
-        "tooltip-format-wifi":  "  {essid}\nSignal: {signalStrength}%\nIP: {ipAddr}",
-        "tooltip-format-ethernet": "󰈀  {ifname}\nIP: {ipAddr}",
+        "format-wifi": "󰖩",
+        "format-ethernet": "󰈀",
+        "format-disconnected": "󰖪",
+        "format-linked": "󰖩",
+        "tooltip-format-wifi": "󰖩  {essid}\nSignal: {signalStrength}%\nIP: {ipaddr}",
+        "tooltip-format-ethernet": "󰈀  {ifname}\nIP: {ipaddr}",
         "tooltip-format-disconnected": "Disconnected",
         "on-click": "nm-connection-editor",
         "max-length": 20
     },
-
     "bluetooth": {
-        "format":           "",
-        "format-connected": "  {device_alias}",
-        "format-connected-battery": "  {device_alias} {device_battery_percentage}%",
-        "format-off":       "󰂲",
-        "tooltip-format":   "Bluetooth: {status}\n{controller_alias}",
+        "format": "󰂯",
+        "format-connected": "󰂱  {device_alias}",
+        "format-connected-battery": "󰂱  {device_alias} {device_battery_percentage}%",
+        "format-off": "󰂲",
+        "tooltip-format": "Bluetooth: {status}\n{controller_alias}",
         "tooltip-format-connected": "{controller_alias}\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}  {device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}  {device_address}  {device_battery_percentage}%",
         "on-click": "blueman-manager"
     },
-
     "backlight": {
         "format": "{icon}  {percent}%",
-        "format-icons": ["", "", "", "", "", "", "", "", ""],
+        "format-icons": [
+            "󰃛",
+            "󰃜",
+            "󰃝",
+            "󰃞",
+            "󰃟",
+            "󰃠"
+        ],
         "on-scroll-up": "brightnessctl -e4 -n2 set 5%+",
         "on-scroll-down": "brightnessctl -e4 -n2 set 5%-",
         "tooltip": true,
         "tooltip-format": "Screen brightness: {percent}%"
     },
-
     "battery": {
         "states": {
-            "good":     95,
-            "warning":  30,
+            "good": 95,
+            "warning": 30,
             "critical": 15
         },
-        "format":           "{icon}  {capacity}%",
-        "format-charging":  "󰂄  {capacity}%",
-        "format-plugged":   "  {capacity}%",
-        "format-full":      "  {capacity}%",
-        "format-icons":     ["", "", "", "", ""],
-        "tooltip-format":   "Battery: {capacity}%\nHealth: {health}%\n{timeTo}\nPower draw: {power}W",
-        "on-click": ""
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-full": "󰁹  {capacity}%",
+        "format-icons": [
+            "󰁻",
+            "󰁽",
+            "󰁿",
+            "󰂁",
+            "󰁹"
+        ],
+        "tooltip-format": "Battery: {capacity}%\nHealth: {health}%\n{timeTo}\nPower draw: {power}W"
     },
-
     "custom/power": {
-        "format": "⏻",
+        "format": "󰐥",
         "tooltip": false,
         "on-click": "wlogout -b 3"
     }
