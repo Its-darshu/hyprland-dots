@@ -41,24 +41,32 @@ Then log out and select **Hyprland** as your session at the login screen.
 | `Super + Q` | Close window |
 | `Super + A` | App launcher (fuzzel) |
 | `Super + E` | File manager (thunar) |
-| `Super + B` | Browser (firefox) |
+| `Super + B` | Browser (brave) |
 
 ### Window Management
 | Key | Action |
 |-----|--------|
-| `Super + Up` | Maximize / restore window |
+| `Super + Up` | Maximize — or restore the most recently minimized window |
 | `Super + Down` | Minimize (hide) window |
-| `Super + Ctrl + Down` | Show minimized windows |
 | `Super + F` | Fullscreen |
 | `Super + V` | Toggle floating |
 | `Super + J` | Toggle split direction (dwindle) |
 | `Super + ;` | Pseudotile (dwindle) |
-| `Super + Shift + arrows` | Move window |
+| `Super + Shift + arrows` | Move window (within workspace) |
 | `Super + Alt + arrows` | Resize window |
 | `Super + Left / Right` | Move focus left / right |
 | `Super + Ctrl + H/J/K/L` | Move focus (vim keys) |
-| `Super + LMB drag` | Move window |
+| `Super + LMB drag` | Move window (within workspace) |
 | `Super + RMB drag` | Resize window |
+
+### Window Switcher (hyprswitch)
+> One-time install required: `bash setup-window-tools.sh`
+
+| Key | Action |
+|-----|--------|
+| `Alt + Tab` | Hold Alt, tap Tab to cycle through all windows (across every workspace, incl. minimized); release Alt to switch |
+| `Alt + Shift + Tab` | Same, cycling backwards |
+| `Super + Tab` | Grid overview of every window grouped by workspace |
 
 ### Session
 | Key | Action |
@@ -70,7 +78,7 @@ Then log out and select **Hyprland** as your session at the login screen.
 ### Screenshots
 | Key | Action |
 |-----|--------|
-| `Super + S` | Screenshot region (saved to ~/Pictures/screenshots) |
+| `Super + S` | Screenshot region (saved to ~/Pictures/Screenshots) |
 | `Super + Shift + S` | Screenshot region → clipboard |
 | `Print` | Full screenshot |
 
@@ -78,10 +86,11 @@ Then log out and select **Hyprland** as your session at the login screen.
 | Key | Action |
 |-----|--------|
 | `Super + 1-9, 0` | Switch to workspace 1–10 |
-| `Super + Shift + 1-9, 0` | Move window to workspace 1–10 |
-| `Super + Tab` | Next workspace |
-| `Super + Shift + Tab` | Previous workspace |
+| `Super + Shift + 1-9, 0` | Move window to workspace 1–10 (stay put) |
+| `Super + Ctrl + Left / Right` | Move window to the adjacent workspace and follow it |
 | `Super + scroll` | Cycle workspaces on bar |
+
+> `Super + Tab` opens the window overview (see **Window Switcher** above), not workspace cycling.
 
 ### Scratchpad
 | Key | Action |
@@ -105,6 +114,7 @@ Then log out and select **Hyprland** as your session at the login screen.
 
 - **Terminal**: gnome-terminal
 - **Launcher**: fuzzel
+- **Window switcher**: hyprswitch (Alt+Tab / Super+Tab overview)
 - **Bar**: waybar
 - **Wallpaper**: swww (disabled at startup — run manually)
 - **Lock**: hyprlock
