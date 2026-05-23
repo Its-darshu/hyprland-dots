@@ -1,3 +1,6 @@
 .claude/
 *.log
 *.tmp
+
+# Local-only project memory for Claude Code (not shared)
+CLAUDE.md
