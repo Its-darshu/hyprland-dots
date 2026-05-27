@@ -34,3 +34,9 @@
     "text" : "downloading",
     "keybind" : "h"
 }
+{
+    "label" : "bootloader",
+    "action" : "systemctl reboot --boot-loader-menu=0",
+    "text" : "developer_board",
+    "keybind" : "b"
+}
